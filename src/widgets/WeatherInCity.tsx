@@ -1,27 +1,30 @@
-import { useGetDailyForecastQuery } from '@api/forecastApi';
+import { useGetForecastQuery } from '@api/forecastApi';
+import { CURRENT_DEFAULT_FIELDS } from '@constants/forecastConstants';
 import { skipToken } from '@reduxjs/toolkit/query';
 import { useAppSelector } from '@slices/handlers/useAppSelector';
+import { MainCard } from '@ui/MainCard/ui/MainCard';
+import { formatDate } from '@utils/formatDate';
 
 export const WeatherInCity = () => {
   const selectedCity = useAppSelector((state) => state.settings.selectedCity);
-  const forecastArgs = selectedCity
+  const args = selectedCity
     ? {
         lat: selectedCity.latitude,
         lon: selectedCity.longitude,
-        days: 7,
-        timezone: 'auto' as const,
+        current: [...CURRENT_DEFAULT_FIELDS],
       }
     : skipToken;
-  const { data: forecast } = useGetDailyForecastQuery(forecastArgs);
+
+  const { data } = useGetForecastQuery(args);
 
   return (
-    <div>
-      <div>{selectedCity?.name ?? 'Не выбран город'}</div>
-      <div>{forecast?.daily.precipitation_sum}</div>
-      <div>{forecast?.daily.temperature_2m_max}</div>
-      <div>{forecast?.daily.temperature_2m_min}</div>
-      <div>{forecast?.daily.time}</div>
-      <div>{forecast?.daily.weather_code}</div>
-    </div>
+    data && (
+      <div>
+        <MainCard
+          date={formatDate(data?.current?.time as string)}
+          temp={String(Math.round(Number(data?.current?.temperature_2m)))}
+        />
+      </div>
+    )
   );
 };

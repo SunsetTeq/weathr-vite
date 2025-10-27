@@ -9,6 +9,7 @@ export interface GeoLocation {
   id?: number;
   name: string;
   country_code?: string;
+  country: string;
   admin1?: string;
   latitude: number;
   longitude: number;

@@ -25,7 +25,7 @@ export function SearchCity() {
   // геокодинг
   const { data: geoData, isFetching: geoLoading } = useSearchCityQuery(
     debouncedQ.trim().length >= 2
-      ? { name: debouncedQ, language: 'ru', count: 5 }
+      ? { name: debouncedQ, language: 'en', count: 5 }
       : skipToken,
   );
   const results = useMemo<NonNullable<GeoSearchApiResponse['results']>>(
@@ -37,6 +37,7 @@ export function SearchCity() {
     const first = results[0];
     if (first)
       handlerSelectCity({
+        country: first.country,
         name: first.name,
         latitude: first.latitude,
         longitude: first.longitude,
@@ -46,8 +47,8 @@ export function SearchCity() {
   console.log(selectedCity);
 
   return (
-    <div className="flex h-full w-full items-start justify-center p-8">
-      <div className="w-full max-w-xl space-y-6">
+    <div className="flex h-full w-full items-center justify-center p-8">
+      <div className="space-y-6">
         {/* Search */}
         <label className="input flex items-center gap-2">
           {/* иконка */}
@@ -95,6 +96,7 @@ export function SearchCity() {
                     className="w-full cursor-pointer text-left hover:underline"
                     onClick={() =>
                       handlerSelectCity({
+                        country: r.country,
                         name: r.name,
                         latitude: r.latitude,
                         longitude: r.longitude,
