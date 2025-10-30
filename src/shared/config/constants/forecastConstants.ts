@@ -11,4 +11,5 @@ export const CURRENT_DEFAULT_FIELDS = [
   'weather_code',
   'wind_speed_10m',
   'precipitation',
+  'relative_humidity_2m',
 ] as const;
