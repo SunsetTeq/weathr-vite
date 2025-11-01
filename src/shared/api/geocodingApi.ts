@@ -14,4 +14,4 @@ export const geocodingApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useSearchCityQuery } = geocodingApi;
+export const { useSearchCityQuery, useLazySearchCityQuery } = geocodingApi;

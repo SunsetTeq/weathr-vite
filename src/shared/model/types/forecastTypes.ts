@@ -16,22 +16,14 @@ export interface ForecastAnyApiResponse {
   latitude?: number;
   longitude?: number;
 
-  current_units?: {
-    time?: string;
-    temperature_2m?: string; // "°C" | "°F"
-    apparent_temperature?: string; // "°C" | "°F"
-    weather_code?: string; // "wmo code" | ""
-    wind_speed_10m?: string; // "m/s" | "km/h" | "mph" | "kn"
-    precipitation?: string; // "mm" | "inch"
-    relative_humidity_2m?: string; // "%"
-  };
+  current_units?: Record<string, string>;
 
   current?: Record<string, number | string | null> & {
     time?: string;
     temperature_2m?: number;
-    weather_code?: number; // 1) Код погоды (WMO)
-    apparent_temperature?: number; // 2) "Ощущается как"
-    wind_speed_10m?: number; // 3) Ветер
+    weather_code?: number;
+    apparent_temperature?: number;
+    wind_speed_10m?: number;
     precipitation?: number; // 4) Осадки
     relative_humidity_2m: number; // 5) Влажность
   };
@@ -39,6 +31,9 @@ export interface ForecastAnyApiResponse {
   daily_units?: Record<string, string>;
   daily?: Record<string, number[] | string[]> & {
     time?: string[];
+    temperature_2m_max?: number[];
+    temperature_2m_min?: number[];
+    weather_code?: number[];
   };
 
   hourly_units?: Record<string, string>;

@@ -5,6 +5,7 @@ import { useAppSelector } from '@slices/handlers/useAppSelector';
 import { MainCard } from './MainCard/ui/MainCard';
 import { formatDate } from '@utils/formatDate';
 import { SmallCard } from './SmallCard';
+import { DailyForecast } from './DailyForecast';
 
 export const WeatherCurrentDay = () => {
   const selectedCity = useAppSelector((state) => state.settings.selectedCity);
@@ -62,6 +63,7 @@ export const WeatherCurrentDay = () => {
             }
           />
         </div>
+        <DailyForecast />
       </div>
     )
   );

@@ -1,5 +1,27 @@
 @import 'tailwindcss';
 @plugin 'daisyui';
+@plugin 'daisyui/theme' {
+  name: 'mytheme';
+  default: true;
+  prefersdark: true;
+  color-scheme: dark;
+
+  --color-base-100: oklch(0.142 0.088 270.99); /* Neutral 900 */
+  --color-base-200: oklch(0.281 0.0501 284.97); /* Neutral 800 */
+  --color-base-300: oklch(0.3206 0.0496 285.52); /* Neutral 700 */
+  --color-base-content: oklch(1 0 0);
+
+  --color-primary: oklch(0.5184 0.2021 271.58); /* Blue 500  */
+  --color-base-content: oklch(1 0 0);
+  --color-secondary: oklch(0.3559 0.1911 276.51); /* Blue 700  */
+  --color-secondary-content: oklch(1 0 0);
+
+  --color-accent: oklch(0.7268 0.1871 51.03); /* Orange 500  */
+  --color-accent-content: oklch(15% 0 0);
+
+  --color-neutral: oklch(0.3701 0.0598 285.36); /* Neutral 600 */
+  --color-neutral-content: oklch(1 0 0);
+}
 
 @theme {
   --font-dmsans: 'DM Sans', system-ui, sans-serif;
