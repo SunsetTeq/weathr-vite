@@ -14,7 +14,7 @@ interface CardProps {
 
 export const Card = ({ data }: CardProps) => {
   return (
-    <div className="bg-base-200 flex min-w-full flex-1 flex-col items-center justify-center gap-4 rounded-[20px] p-4 md:min-w-[100px]">
+    <div className="bg-base-200 flex min-w-[100px] flex-1 flex-col items-center justify-center gap-4 rounded-[20px] p-4">
       <p className="text-paragraph-style text-primary-content">
         {formatDay(data.date ?? '')}
       </p>

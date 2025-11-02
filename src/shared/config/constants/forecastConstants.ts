@@ -4,6 +4,11 @@ export const DAILY_DEFAULT_FIELDS = [
   'weather_code',
 ] as const;
 
+export const HOURLY_DEFAULT_FIELDS = [
+  'temperature_2m',
+  'weather_code',
+] as const;
+
 export const CURRENT_DEFAULT_FIELDS = [
   'temperature_2m',
   'apparent_temperature',

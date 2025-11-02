@@ -3,7 +3,7 @@ import { WeatherCurrentDay } from '@ui/WeatherCurrentDay';
 
 export function App() {
   return (
-    <div className="flex flex-col items-center justify-center p-8">
+    <div className="flex w-full flex-col p-8 xl:px-30">
       <SearchCity />
       <WeatherCurrentDay />
     </div>
