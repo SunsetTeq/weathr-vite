@@ -30,7 +30,7 @@
 
 @layer components {
   .text-heading1 {
-    @apply font-bricolage text-9xl font-bold;
+    @apply font-bricolage text-5xl font-bold;
   }
 
   .text-paragraph-style {

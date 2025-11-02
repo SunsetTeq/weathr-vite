@@ -14,7 +14,7 @@ export const MainCard = ({
 
   return (
     <div
-      className={`flex h-[286px] rounded-[20px] bg-[url(@assets/img/bg-today-large.svg)] bg-cover bg-no-repeat px-6 text-white`}
+      className={`flex h-[286px] min-w-[800px] rounded-[20px] bg-[url(@assets/img/bg-today-large.svg)] bg-cover bg-no-repeat px-6 text-white`}
     >
       <div className="flex flex-1 flex-col justify-center gap-2">
         <p className="text-heading2-style">
