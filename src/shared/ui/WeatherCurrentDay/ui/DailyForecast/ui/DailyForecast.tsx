@@ -4,6 +4,8 @@ import { DAILY_DEFAULT_FIELDS } from '@constants/forecastConstants';
 import { skipToken } from '@reduxjs/toolkit/query';
 import { useGetForecastQuery } from '@api/forecastApi';
 import { useMemo } from 'react';
+import { EmptyCard } from './EmptyCard';
+import { emptyDailyList } from '../config/constants';
 
 export const DailyForecast = () => {
   const selectedCity = useAppSelector((state) => state.settings.selectedCity);
@@ -16,7 +18,7 @@ export const DailyForecast = () => {
       }
     : skipToken;
 
-  const { data } = useGetForecastQuery(args);
+  const { data, isLoading, isFetching } = useGetForecastQuery(args);
   const rows = useMemo(() => {
     const d = data?.daily;
     if (!d) return [];
@@ -33,9 +35,9 @@ export const DailyForecast = () => {
     <div className="flex flex-1 flex-col gap-4">
       <h3>Daily Forecast</h3>
       <div className="flex flex-wrap gap-4">
-        {rows.map((el, idx) => (
-          <Card data={el} key={idx} />
-        ))}
+        {!isLoading && !isFetching
+          ? rows.map((el, idx) => <Card data={el} key={idx} />)
+          : emptyDailyList.map((_, idx) => <EmptyCard key={idx} />)}
       </div>
     </div>
   );

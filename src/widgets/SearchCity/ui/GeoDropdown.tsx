@@ -17,7 +17,12 @@ export function GeoDropdown({ id, results, loading, onPick }: Props) {
       className="bg-base-200 absolute top-full right-0 left-0 z-50 mt-4 max-h-72 overflow-auto rounded-[10px] p-2 shadow-lg"
       role="listbox"
     >
-      {loading && <div className="opacity-70">Searching</div>}
+      {loading && (
+        <div className="text-paragraph-style flex gap-2 opacity-70">
+          <span className="loading loading-spinner loading-sm"></span>
+          <span>Search in progress</span>
+        </div>
+      )}
       {!loading && results.length === 0 && (
         <div className="opacity-70">No results</div>
       )}

@@ -115,15 +115,6 @@ export function SearchCity() {
               />
             )}
           </div>
-
-          <button
-            className="btn btn-primary rounded-[10px]"
-            onClick={searchAndSelect}
-            disabled={q.trim().length < 2 || btnLoading}
-            aria-busy={btnLoading}
-          >
-            {btnLoading ? 'Searching…' : 'Search'}
-          </button>
         </div>
       </div>
     </div>

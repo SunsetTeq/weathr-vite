@@ -6,6 +6,7 @@ import { useAppSelector } from '@slices/handlers/useAppSelector';
 import { Card } from './Card';
 import { formatFullDay } from '@utils/formatDate';
 import DropdownIcon from '@assets/icons/icon-dropdown.svg?react';
+import { EmptyCard } from './EmptyCard';
 
 type HourItem = {
   date: string;
@@ -24,7 +25,7 @@ export const HourlyForecast = () => {
       }
     : skipToken;
 
-  const { data } = useGetForecastQuery(args);
+  const { data, isLoading, isFetching } = useGetForecastQuery(args);
   const ddRef = useRef<HTMLDetailsElement>(null);
 
   const times = useMemo<string[]>(
@@ -115,7 +116,29 @@ export const HourlyForecast = () => {
     return acc;
   }, [times, temps, codes, selectedDate, todayStr, hourStr]);
 
-  if (!dayList.length) return null;
+  if (isLoading || isFetching) {
+    return (
+      <div className="bg-base-200 flex h-fit min-w-[320px] flex-col gap-4 rounded-[20px] px-4 pt-6 pb-4">
+        <div className="flex items-center justify-between gap-2">
+          <h3 className="text-lg font-semibold">Hourly forecast</h3>
+          <summary className="btn btn-neutral list-none gap-2 rounded-[10px]">
+            <span className="text-paragraph-style text-primary-content">—</span>
+            <DropdownIcon className="transition-transform group-open:rotate-180" />
+          </summary>
+        </div>
+        <div className="-mr-4 flex max-h-[570px] flex-col gap-2 overflow-y-auto pr-4">
+          <EmptyCard />
+          <EmptyCard />
+          <EmptyCard />
+          <EmptyCard />
+          <EmptyCard />
+          <EmptyCard />
+          <EmptyCard />
+          <EmptyCard />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-base-200 flex h-fit min-w-[320px] flex-col gap-4 rounded-[20px] px-4 pt-6 pb-4">
@@ -153,7 +176,7 @@ export const HourlyForecast = () => {
         </details>{' '}
       </div>
 
-      <div className="flex max-h-[570px] flex-col gap-2 overflow-y-auto pr-4">
+      <div className="-mr-4 flex max-h-[570px] flex-col gap-2 overflow-y-auto pr-4">
         {items.map((item) => (
           <div key={item.date} className="min-w-[180px]">
             <Card data={item} />
