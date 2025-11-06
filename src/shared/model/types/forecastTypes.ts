@@ -1,4 +1,9 @@
-// Что просим у API
+export type UnitsArgs = {
+  temperature_unit?: 'celsius' | 'fahrenheit';
+  wind_speed_unit?: 'kmh' | 'mph';
+  precipitation_unit?: 'mm' | 'inch';
+};
+
 export interface ForecastQueryArgs {
   lat: number;
   lon: number;

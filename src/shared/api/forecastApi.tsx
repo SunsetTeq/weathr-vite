@@ -2,6 +2,7 @@ import { baseApi } from '@api/base/baseApi';
 import type {
   ForecastQueryArgs,
   ForecastAnyApiResponse,
+  UnitsArgs,
 } from '@type/forecastTypes';
 
 function clampDays(n?: number) {
@@ -11,7 +12,10 @@ function clampDays(n?: number) {
 
 export const forecastApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    getForecast: build.query<ForecastAnyApiResponse, ForecastQueryArgs>({
+    getForecast: build.query<
+      ForecastAnyApiResponse,
+      ForecastQueryArgs & UnitsArgs
+    >({
       query: ({
         lat,
         lon,
@@ -22,6 +26,9 @@ export const forecastApi = baseApi.injectEndpoints({
         daily,
         current,
         hourly,
+        temperature_unit,
+        wind_speed_unit,
+        precipitation_unit,
       }) => {
         const params: Record<string, string | number> = {
           latitude: lat,
@@ -38,6 +45,10 @@ export const forecastApi = baseApi.injectEndpoints({
         if (daily?.length) params.daily = daily.join(',');
         if (current?.length) params.current = current.join(',');
         if (hourly?.length) params.hourly = hourly.join(',');
+
+        if (temperature_unit) params.temperature_unit = temperature_unit;
+        if (wind_speed_unit) params.wind_speed_unit = wind_speed_unit;
+        if (precipitation_unit) params.precipitation_unit = precipitation_unit;
 
         return {
           url: 'https://api.open-meteo.com/v1/forecast',

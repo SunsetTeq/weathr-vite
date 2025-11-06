@@ -9,16 +9,28 @@ import { emptyDailyList } from '../config/constants';
 
 export const DailyForecast = () => {
   const selectedCity = useAppSelector((state) => state.settings.selectedCity);
-  const args = selectedCity
-    ? {
-        lat: selectedCity.latitude,
-        lon: selectedCity.longitude,
-        forecast_days: 7,
-        daily: [...DAILY_DEFAULT_FIELDS],
-      }
-    : skipToken;
 
-  const { data, isLoading, isFetching } = useGetForecastQuery(args);
+  const temp = useAppSelector((state) => state.settings.Temperature);
+  const precSpeed = useAppSelector((state) => state.settings.Precipitation);
+  const wind = useAppSelector((state) => state.settings.WindSpeed);
+
+  const args = useMemo(() => {
+    if (!selectedCity) return skipToken;
+    return {
+      lat: selectedCity.latitude,
+      lon: selectedCity.longitude,
+      forecast_days: 7,
+      temperature_unit: temp,
+      wind_speed_unit: wind,
+      precipitation_unit: precSpeed,
+      daily: [...DAILY_DEFAULT_FIELDS],
+    };
+  }, [selectedCity, temp, wind, precSpeed]);
+
+  const { data, isLoading, isFetching } = useGetForecastQuery(args, {
+    refetchOnMountOrArgChange: true,
+  });
+
   const rows = useMemo(() => {
     const d = data?.daily;
     if (!d) return [];

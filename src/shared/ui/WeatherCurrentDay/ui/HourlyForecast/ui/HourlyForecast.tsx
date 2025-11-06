@@ -16,16 +16,28 @@ type HourItem = {
 
 export const HourlyForecast = () => {
   const selectedCity = useAppSelector((state) => state.settings.selectedCity);
-  const args = selectedCity
-    ? {
-        lat: selectedCity.latitude,
-        lon: selectedCity.longitude,
-        forecast_days: 7,
-        hourly: [...HOURLY_DEFAULT_FIELDS],
-      }
-    : skipToken;
 
-  const { data, isLoading, isFetching } = useGetForecastQuery(args);
+  const temp = useAppSelector((state) => state.settings.Temperature);
+  const precSpeed = useAppSelector((state) => state.settings.Precipitation);
+  const wind = useAppSelector((state) => state.settings.WindSpeed);
+
+  const args = useMemo(() => {
+    if (!selectedCity) return skipToken;
+    return {
+      lat: selectedCity.latitude,
+      lon: selectedCity.longitude,
+      forecast_days: 7,
+      temperature_unit: temp,
+      wind_speed_unit: wind,
+      precipitation_unit: precSpeed,
+      hourly: [...HOURLY_DEFAULT_FIELDS],
+    };
+  }, [selectedCity, temp, wind, precSpeed]);
+
+  const { data, isLoading, isFetching } = useGetForecastQuery(args, {
+    refetchOnMountOrArgChange: true,
+  });
+
   const ddRef = useRef<HTMLDetailsElement>(null);
 
   const times = useMemo<string[]>(
@@ -118,7 +130,7 @@ export const HourlyForecast = () => {
 
   if (isLoading || isFetching) {
     return (
-      <div className="bg-base-200 flex h-fit min-w-[320px] flex-col gap-4 rounded-[20px] px-4 pt-6 pb-4">
+      <div className="bg-base-200 flex h-fit min-w-[270px] flex-col gap-4 rounded-[20px] px-4 pt-6 pb-4 md:min-w-[320px]">
         <div className="flex items-center justify-between gap-2">
           <h3 className="text-lg font-semibold">Hourly forecast</h3>
           <summary className="btn btn-neutral list-none gap-2 rounded-[10px]">
@@ -141,7 +153,7 @@ export const HourlyForecast = () => {
   }
 
   return (
-    <div className="bg-base-200 flex h-fit min-w-[320px] flex-col gap-4 rounded-[20px] px-4 pt-6 pb-4">
+    <div className="bg-base-200 flex h-fit min-w-[270px] flex-col gap-4 rounded-[20px] px-4 pt-6 pb-4 md:min-w-[320px]">
       <div className="flex items-center justify-between gap-2">
         <h3 className="text-lg font-semibold">Hourly forecast</h3>
         {/* Dropdown */}

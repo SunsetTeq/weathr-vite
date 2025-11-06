@@ -92,7 +92,7 @@ export function SearchCity() {
   };
 
   return (
-    <div className="flex h-full w-full items-center justify-center p-8">
+    <div className="flex h-full w-full items-center justify-center py-2 md:px-8 md:py-8">
       <div className="w-full space-y-6 md:w-[40%]">
         <div className="flex gap-4">
           <div ref={boxRef} className="relative min-w-0 flex-1">

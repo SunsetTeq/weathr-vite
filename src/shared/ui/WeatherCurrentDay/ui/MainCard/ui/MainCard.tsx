@@ -14,9 +14,9 @@ export const MainCard = ({
 
   return (
     <div
-      className={`flex h-[286px] min-w-[800px] rounded-[20px] bg-[url(@assets/img/bg-today-large.svg)] bg-cover bg-no-repeat px-6 text-white`}
+      className={`flex h-[286px] flex-col items-center justify-center gap-8 rounded-[20px] bg-[url(@assets/img/bg-today-small.svg)] bg-cover bg-no-repeat px-6 text-center text-white sm:bg-[url(@assets/img/bg-today-large.svg)] md:flex-row md:gap-0 md:text-left lg:min-w-[800px]`}
     >
-      <div className="flex flex-1 flex-col justify-center gap-2">
+      <div className="flex flex-col justify-center gap-2 md:flex-1">
         <p className="text-heading2-style">
           <span>{selectedCity?.name}</span>,{' '}
           <span>{selectedCity?.country}</span>

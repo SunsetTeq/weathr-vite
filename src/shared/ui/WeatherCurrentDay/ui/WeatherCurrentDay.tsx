@@ -7,18 +7,30 @@ import { formatDate } from '@utils/formatDate';
 import { SmallCard } from './SmallCard';
 import { DailyForecast } from './DailyForecast';
 import { HourlyForecast } from './HourlyForecast';
+import { useMemo } from 'react';
 
 export const WeatherCurrentDay = () => {
   const selectedCity = useAppSelector((state) => state.settings.selectedCity);
-  const args = selectedCity
-    ? {
-        lat: selectedCity.latitude,
-        lon: selectedCity.longitude,
-        current: [...CURRENT_DEFAULT_FIELDS],
-      }
-    : skipToken;
+  const temp = useAppSelector((state) => state.settings.Temperature);
+  const precSpeed = useAppSelector((state) => state.settings.Precipitation);
+  const wind = useAppSelector((state) => state.settings.WindSpeed);
 
-  const { data, isLoading, isFetching } = useGetForecastQuery(args);
+  const args = useMemo(() => {
+    if (!selectedCity) return skipToken;
+    return {
+      lat: selectedCity.latitude,
+      lon: selectedCity.longitude,
+      temperature_unit: temp,
+      wind_speed_unit: wind,
+      precipitation_unit: precSpeed,
+      current: [...CURRENT_DEFAULT_FIELDS],
+    };
+  }, [selectedCity, temp, wind, precSpeed]);
+
+  const { data, isLoading, isFetching } = useGetForecastQuery(args, {
+    refetchOnMountOrArgChange: true,
+  });
+
   const curr = data?.current;
   const currUnits = data?.current_units;
 
@@ -30,7 +42,7 @@ export const WeatherCurrentDay = () => {
             <span className="loading loading-dots loading-xl scale-[1.5]"></span>
             <p className="text-paragraph-style">Loading...</p>
           </div>
-          <div className="flex gap-4">
+          <div className="flex flex-wrap gap-4">
             <SmallCard title="Feels Like" value="—" />
             <SmallCard title="Humidity" value="—" />
             <SmallCard title="Wind" value="—" />
@@ -52,7 +64,7 @@ export const WeatherCurrentDay = () => {
             temp={String(Math.round(Number(data?.current?.temperature_2m)))}
             code={data?.current?.weather_code}
           />
-          <div className="flex gap-4">
+          <div className="flex flex-wrap gap-4">
             <SmallCard
               title="Feels Like"
               value={
