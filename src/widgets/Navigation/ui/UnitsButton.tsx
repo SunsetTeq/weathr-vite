@@ -48,10 +48,12 @@ export const UnitsButton = () => {
         <DropdownIcon />
       </summary>
 
-      <ul className="dropdown-content menu bg-base-200 rounded-box z-1 w-64 gap-2 p-3 shadow">
-        <li className="menu-title px-2">Temperature</li>
+      <ul className="dropdown-content menu rounded-box border-neutral bg-base-200 z-1 mt-2 w-64 gap-2 border px-1 py-4">
+        <li className="text-paragraph-style menu-title px-2 py-0">
+          Temperature
+        </li>
         <li>
-          <label className="label cursor-pointer justify-between">
+          <label className="text-paragraph-style text-primary-content label cursor-pointer justify-between rounded-[5px]">
             <span>Celsius (°C)</span>
             <input
               type="radio"
@@ -63,7 +65,7 @@ export const UnitsButton = () => {
           </label>
         </li>
         <li>
-          <label className="label cursor-pointer justify-between">
+          <label className="text-paragraph-style text-primary-content label cursor-pointer justify-between rounded-[5px]">
             <span>Fahrenheit (°F)</span>
             <input
               type="radio"
@@ -74,10 +76,13 @@ export const UnitsButton = () => {
             />
           </label>
         </li>
+        <div className="divider m-0 h-px p-0" />
 
-        <li className="menu-title mt-2 px-2">Wind Speed</li>
+        <li className="text-paragraph-style menu-title mt-2 px-2 py-0">
+          Wind Speed
+        </li>
         <li>
-          <label className="label cursor-pointer justify-between">
+          <label className="text-paragraph-style text-primary-content label cursor-pointer justify-between rounded-[5px]">
             <span>km/h</span>
             <input
               type="radio"
@@ -89,7 +94,7 @@ export const UnitsButton = () => {
           </label>
         </li>
         <li>
-          <label className="label cursor-pointer justify-between">
+          <label className="text-paragraph-style text-primary-content label cursor-pointer justify-between rounded-[5px]">
             <span>mph</span>
             <input
               type="radio"
@@ -100,10 +105,13 @@ export const UnitsButton = () => {
             />
           </label>
         </li>
+        <div className="divider m-0 h-px p-0" />
 
-        <li className="menu-title mt-2 px-2">Precipitation</li>
+        <li className="text-paragraph-style menu-title mt-2 px-2 py-0">
+          Precipitation
+        </li>
         <li>
-          <label className="label cursor-pointer justify-between">
+          <label className="text-paragraph-style text-primary-content label cursor-pointer justify-between rounded-[5px]">
             <span>Millimeters (mm)</span>
             <input
               type="radio"
@@ -115,7 +123,7 @@ export const UnitsButton = () => {
           </label>
         </li>
         <li>
-          <label className="label cursor-pointer justify-between">
+          <label className="text-paragraph-style text-primary-content label cursor-pointer justify-between rounded-[5px]">
             <span>Inches (in)</span>
             <input
               type="radio"
